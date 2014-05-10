@@ -1,0 +1,4 @@
+# Ignore mac dir files
+.DS_Store
+*/.DS_Store
+
