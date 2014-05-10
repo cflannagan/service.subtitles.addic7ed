@@ -64,67 +64,19 @@ def append_subtitle(item):
   xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=listitem, isFolder=False)
 
 def query_TvShow(name, season, episode, langs, file_original_path):
-  sublinks = []
-
   name = name.lower().replace(" ", "_").replace("$#*!","shit").replace("'","") # need this for $#*! My Dad Says and That 70s show
   searchurl = "%s/serie/%s/%s/%s/addic7ed" %(self_host, name, season, episode)
+  filename_string = "%s.S%.2dE%.2d" %(name.replace("_", ".").title(), int(season), int(episode) )
+  query(searchurl, langs, file_original_path, filename_string)
 
-  socket.setdefaulttimeout(3)
-  request = urllib2.Request(searchurl)
-  request.add_header('Pragma', 'no-cache')
-  page = urllib2.build_opener().open(request)
-  content = page.read()
-  content = content.replace("The safer, easier way", "The safer, easier way \" />")
-  soup = BeautifulSoup(content)
-
-  file_name = str(os.path.basename(file_original_path)).split("-")[-1].lower()
-
-  for subs in soup("td", {"class":"NewsTitle", "colspan" : "3"}):
-
-    try:
-      langs_html = subs.findNext("td", {"class" : "language"})
-      fullLanguage = str(langs_html).split('class="language">')[1].split('<a')[0].replace("\n","")
-      subteams = self_release_pattern.match(str(subs.contents[1])).groups()[0]
-
-      if (str(subteams.replace("WEB-DL-", "").lower()).find(str(file_name))) > -1:
-        hashed = True
-      else:
-        hashed = False
-
-      try:
-        lang = get_language_info(fullLanguage)
-      except:
-        lang = ""
-
-      statusTD = langs_html.findNext("td")
-      status = statusTD.find("b").string.strip()
-
-      linkTD = statusTD.findNext("td")
-      link = "%s%s" % (self_host,linkTD.find("a")["href"])
-
-      if(subs.findNext("td", {"class":"newsDate", "colspan" : "2"}).findAll('img', {'title': 'Hearing Impaired'})):
-        HI = True
-      else:
-        HI = False
-
-      if status == "Completed" and (lang['3let'] in langs) :
-        sublinks.append({'rating': '0', 'filename': "%s.S%.2dE%.2d-%s" %(name.replace("_", ".").title(), int(season), int(episode),subteams ), 'sync': hashed, 'link': link, 'lang': lang, 'hearing_imp': HI})
-    except:
-      log(__name__, "ERROR IN BS")
-      pass
-
-  sublinks.sort(key=lambda x: [not x['sync']])
-  log(__name__, "sub='%s'" % (sublinks))
-
-  for s in sublinks:
-    append_subtitle(s)
-        
 def query_Film(name, year, langs, file_original_path):
-  sublinks = []
-
   name = urllib.quote(name.replace(" ", "_"))
   searchurl = "%s/film/%s_(%s)-Download" %(self_host,name, str(year))
+  filename_string = "%s" %(name.replace("_", ".").title() )
+  query(searchurl, langs, file_original_path, filename_string)
 
+def query(searchurl, langs, file_original_path, filename_string):
+  sublinks = []
   socket.setdefaulttimeout(3)
   request = urllib2.Request(searchurl)
   request.add_header('Pragma', 'no-cache')
@@ -164,7 +116,7 @@ def query_Film(name, year, langs, file_original_path):
         HI = False
 
       if status == "Completed" and (lang['3let'] in langs) :
-        sublinks.append({'rating': '0', 'filename':"%s-%s" %(name.replace("_", ".").title(),subteams ), 'sync': hashed, 'link': link, 'lang': lang, 'hearing_imp': HI})
+        sublinks.append({'rating': '0', 'filename': "%s-%s" %(filename_string, subteams ), 'sync': hashed, 'link': link, 'lang': lang, 'hearing_imp': HI})
     except:
       log(__name__, "ERROR IN BS")
       pass
