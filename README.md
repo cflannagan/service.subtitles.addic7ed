@@ -1,0 +1,10 @@
+service.subtitles.addic7ed
+==========================
+
+Addic7ed.com subtitle service plugin for XBMC
+
+Disclaimer: UNOFFICIAL addon! Not responsible for anything that happens - good, bad, or otherwise if you decide to use this addon.
+
+Be sure to add the following line to your userdata/addon_data/script.xbmc.subtitles/settings.xml
+
+<setting id="Addic7ed" value="true" />
