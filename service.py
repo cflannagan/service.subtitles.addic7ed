@@ -176,12 +176,15 @@ def query_Film(name, year, langs, file_original_path):
     append_subtitle(s)
 
 def search_manual(searchstr, languages, filename):
+  xbmc.executebuiltin((u'Notification(%s,%s)' % (__scriptname__ , __language__(24000))).encode('utf-8'))
+  return False
   search_string = prepare_search_string(searchstr)
   url = self_host + "/search.php?search=" + search_string + '&Submit=Search'
   content, response_url = geturl(url)
 
   if content is not None:
-    getallsubs(content, languages, filename)
+    return False
+    # getallsubs(content, languages, filename)
 
 def search_filename(filename, languages):
   title, year = xbmc.getCleanMovieTitle(filename)
