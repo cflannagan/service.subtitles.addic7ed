@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*- 
-# Contents from https://github.com/Diecke/service.subtitles.addicted
+# Based on contents from https://github.com/Diecke/service.subtitles.addicted
+# Thanks Diecke!
 
 import os
 import sys
@@ -19,7 +20,6 @@ import string
 from BeautifulSoup import BeautifulSoup
 
 __addon__ = xbmcaddon.Addon()
-__author__     = __addon__.getAddonInfo('author')
 __scriptid__   = __addon__.getAddonInfo('id')
 __scriptname__ = __addon__.getAddonInfo('name')
 __version__    = __addon__.getAddonInfo('version')
@@ -32,11 +32,10 @@ __temp__       = xbmc.translatePath( os.path.join( __profile__, 'temp') ).decode
 
 sys.path.append (__resource__)
 
-from Addic7edUtilities import log, languageTranslate, get_language_info
+from Addic7edUtilities import log, get_language_info
 
 self_host = "http://www.addic7ed.com"
 self_release_pattern = re.compile("Version (.+), ([0-9]+).([0-9])+ MBs")
-self_release_filename_pattern = re.compile(".*\-(.*)\.")
     
 def get_url(url):
   req_headers = {
@@ -64,7 +63,7 @@ def append_subtitle(item):
   xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=listitem, isFolder=False)
 
 def query_TvShow(name, season, episode, langs, file_original_path):
-  name = name.lower().replace(" ", "_").replace("$#*!","shit").replace("'","") # need this for $#*! My Dad Says and That 70s show
+  name = addic7ize(name).lower().replace(" ", "_").replace("$#*!","shit").replace("'","") # need this for $#*! My Dad Says and That 70s show
   searchurl = "%s/serie/%s/%s/%s/addic7ed" %(self_host, name, season, episode)
   filename_string = "%s.S%.2dE%.2d" %(name.replace("_", ".").title(), int(season), int(episode) )
   query(searchurl, langs, file_original_path, filename_string)
@@ -203,6 +202,12 @@ def normalizeString(str):
       'NFKD', unicode(unicode(str, 'utf-8'))
   ).encode('ascii', 'ignore')
 
+# Sometimes search fail because Addic7ed uses URLs that does not match the TheTVDB format.
+# This will probably grow to be a hardcoded colleciton over time. 
+def addic7ize(str):
+  return {
+    'Kitchen Nightmares US': 'Kitchen Nightmares',
+  }.get(str, str)
 
 def get_params():
   param = {}
@@ -220,7 +225,6 @@ def get_params():
         param[splitparams[0]] = splitparams[1]
 
   return param
-
 
 params = get_params()
 
