@@ -7,9 +7,10 @@ XBMC Gotham version only. Will not work with Frodo or previous verisons.
 
 Disclaimer: UNOFFICIAL addon! Not responsible for anything that happens - good, bad, or otherwise if you decide to use this addon.
 
-Git clone this project into the userdata/addon_data/ folder.
+Git clone this project into the 'addons' folder.
 
-Also, be sure to add the following line to your userdata/addon_data/script.xbmc.subtitles/settings.xml
+Finally, add the following line to 'userdata/addon_data/script.xbmc.subtitles/settings.xml' file to enable the service.
+
 ```
 <setting id="Addic7ed" value="true" />
 ```
