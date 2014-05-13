@@ -63,7 +63,7 @@ def append_subtitle(item):
   xbmcplugin.addDirectoryItem(handle=int(sys.argv[1]), url=url, listitem=listitem, isFolder=False)
 
 def query_TvShow(name, season, episode, langs, file_original_path):
-  name = addic7ize(name).lower().replace(" ", "_").replace("$#*!","shit").replace("'","") # need this for $#*! My Dad Says and That 70s show
+  name = addic7ize(name).lower().replace(" ", "_")
   searchurl = "%s/serie/%s/%s/%s/addic7ed" %(self_host, name, season, episode)
   filename_string = "%s.S%.2dE%.2d" %(name.replace("_", ".").title(), int(season), int(episode) )
   query(searchurl, langs, file_original_path, filename_string)
