@@ -208,6 +208,7 @@ def addic7ize(str):
   return {
     'Kitchen Nightmares US': 'Kitchen Nightmares',
     'Cosmos A Space Time Odyssey': 'Cosmos: A Space-Time Odyssey',
+    'Greys Anatomy': 'Grey\'s Anatomy',
   }.get(str, str)
 
 def get_params():
