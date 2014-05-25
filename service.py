@@ -32,7 +32,7 @@ __temp__       = xbmc.translatePath( os.path.join( __profile__, 'temp') ).decode
 
 sys.path.append (__resource__)
 
-from Addic7edUtilities import log, get_language_info
+from Addic7edUtilities import log, get_language_info, addic7ize
 
 self_host = "http://www.addic7ed.com"
 self_release_pattern = re.compile("Version (.+), ([0-9]+).([0-9])+ MBs")
@@ -201,15 +201,6 @@ def normalizeString(str):
   return unicodedata.normalize(
       'NFKD', unicode(unicode(str, 'utf-8'))
   ).encode('ascii', 'ignore')
-
-# Sometimes search fail because Addic7ed uses URLs that does not match the TheTVDB format.
-# This will probably grow to be a hardcoded colleciton over time. 
-def addic7ize(str):
-  return {
-    'Kitchen Nightmares US': 'Kitchen Nightmares',
-    'Cosmos A Space Time Odyssey': 'Cosmos: A Space-Time Odyssey',
-    'Greys Anatomy': 'Grey\'s Anatomy',
-  }.get(str, str)
 
 def get_params():
   param = {}

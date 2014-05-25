@@ -67,7 +67,18 @@ LANGUAGES = (
   ("Chinese (Traditional)", "17", "zh", "chi", "100", 30207),
   ("Chinese (Simplified)", "17", "zh", "chi", "100", 30207))
 
-   
+SHOWS = {
+    'Kitchen Nightmares US': 'Kitchen Nightmares',
+    'Cosmos A Space Time Odyssey': 'Cosmos: A Space-Time Odyssey',
+    'Greys Anatomy': 'Grey\'s Anatomy',
+    'Shameless US': 'Shameless (US)'
+}
+
+# Sometimes search fail because Addic7ed uses URLs that does not match the TheTVDB format.
+# This will probably grow to be a hardcoded colleciton over time.
+def addic7ize(str):
+  return SHOWS.get(str, str)
+
 def log(module,msg):
   xbmc.log((u"### [%s] - %s" % (module, msg,)).encode('utf-8'), level=xbmc.LOGDEBUG)
 
@@ -75,3 +86,4 @@ def get_language_info(language):
   for lang in LANGUAGES:
     if lang[0] == language:
       return {'name': lang[0], '2let': lang[2], '3let': lang[3]}
+
