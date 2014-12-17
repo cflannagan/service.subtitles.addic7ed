@@ -5,12 +5,13 @@
        provider-name="CFlannagan">
     <requires>
         <import addon="xbmc.python" version="2.14.0"/>
+        <import addon="script.module.beautifulsoup" version="3.2.1"/>
     </requires>
     <extension point="xbmc.subtitle.module"
                library="service.py"/>
     <extension point="xbmc.addon.metadata">
         <summary lang="en">Get subtitles from Addic7ed.com</summary>
-        <description lang="en">Description for Addic7ed to come</description>
+        <description lang="en">Download free subtitles for TV Shows and Movies.</description>
         <disclaimer lang="en"/>
         <platform>all</platform>
         <language/>
