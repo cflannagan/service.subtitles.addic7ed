@@ -1,3 +1,5 @@
+PLEASE NOTE THAT I AM NO LONGER MAINTAINING THIS PROJECT IN THE FORESEEABLE FUTURE - Let me know if you would like to become the maintainer then I will post a link to your Github page - thanks! 
+
 service.subtitles.addic7ed
 ==========================
 
