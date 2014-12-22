@@ -86,10 +86,10 @@ def query(searchurl, langs, file_original_path, filename_string):
 
   file_name = str(os.path.basename(file_original_path)).split("-")[-1].lower()
 
-  for subs in soup("td", {"class":"NewsTitle", "colspan" : "3"}):
+  for langs_html in soup("td", {"class" : "language"}):
 
     try:
-      langs_html = subs.findNext("td", {"class" : "language"})
+      subs = langs_html.findPrevious("td", {"class":"NewsTitle", "colspan" : "3"})
       fullLanguage = str(langs_html).split('class="language">')[1].split('<a')[0].replace("\n","")
       subteams = self_release_pattern.match(str(subs.contents[1])).groups()[0]
 

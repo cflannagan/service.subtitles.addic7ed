@@ -71,7 +71,9 @@ SHOWS = {
     'Kitchen Nightmares US': 'Kitchen Nightmares',
     'Cosmos A Space Time Odyssey': 'Cosmos: A Space-Time Odyssey',
     'Greys Anatomy': 'Grey\'s Anatomy',
-    'Shameless US': 'Shameless (US)'
+    'Shameless US': 'Shameless (US)',
+    'Once Upon a Time (2011)': 'Once Upon a Time',
+    'Castle (2009)': 'Castle'
 }
 
 # Sometimes search fail because Addic7ed uses URLs that does not match the TheTVDB format.
